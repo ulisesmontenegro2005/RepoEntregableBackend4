@@ -9,11 +9,18 @@ const router = express.Router();
 
 const productos = [];
 
+
+
 // inicio 
+
 
 router.get('/productos', (req, res) => {
     res.json(productos);
 })
+
+
+// obtener producto por id
+
 
 router.get('/productos/:id', (req, res) => {
     if (productos.find(el => el.id == req.params.id) == undefined) {
@@ -26,6 +33,10 @@ router.get('/productos/:id', (req, res) => {
         }
     })
 })
+
+
+// agregar producto
+
 
 router.post('/productos', (req, res) => {
     let id = productos.length + 1
@@ -41,6 +52,10 @@ router.post('/productos', (req, res) => {
     res.json({estado: 'enviado correctamente'})
 })
 
+
+// modificar por id
+
+
 router.put('/productos/:id', (req, res) => {
     if (productos.find(el => el.id == req.params.id) == undefined) {
         res.json({error: 'producto no encontrado'})
@@ -55,6 +70,10 @@ router.put('/productos/:id', (req, res) => {
     res.json({anterior: productoAnterior, actualizado: productos[req.params.id - 1]});
 })
 
+
+// delete por id
+
+
 router.delete('/productos/:id', (req, res) => {
     if (productos.find(el => el.id == req.params.id) == undefined) {
         res.json({error: 'producto no encontrado'})
@@ -64,6 +83,17 @@ router.delete('/productos/:id', (req, res) => {
 
     res.json({productoEliminado: productoEliminado})
 })
+
+
+// formulario html post
+
+
+router.get('/form', (req, res) => {
+
+    res.sendFile(__dirname + '/public/index.html')
+
+})
+
 
 // fin
 
